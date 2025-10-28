@@ -163,3 +163,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 3
   bulletDistance: 1
+  damage: 1

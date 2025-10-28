@@ -3,22 +3,34 @@ using UnityEngine.Rendering;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private HeadController headController;
+
     [Header("이동")]
     [SerializeField] private float moveSpeed = 2.0f;
-    
+
+    [Header("체력")]
+    [SerializeField] private int maxHp = 10;
+
+
+    private int currentHp;
 
     private Rigidbody2D rb;
     private Animator playerAnim;
     private Vector2 moveInput;
+    private SpriteRenderer spriter;
 
     private static readonly int moveSpeedXHash = Animator.StringToHash("MoveX");
     private static readonly int moveSpeedYHash = Animator.StringToHash("MoveY");
 
-
+    public static Transform PlayerCachedTransform { get; private set; }
+    
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         playerAnim = GetComponent<Animator>();
+        PlayerCachedTransform = transform;
+        currentHp = maxHp;
+        spriter = GetComponent<SpriteRenderer>();
     }
     void Update()
     {
@@ -44,5 +56,44 @@ public class PlayerController : MonoBehaviour
         Vector2 newPos = rb.position + new Vector2(moveInput.x, moveInput.y) * moveSpeed * Time.deltaTime;
         rb.MovePosition(newPos);
     }
+    public void TakeDamage(int damage)
+    {
+        currentHp -= damage;
+        if(currentHp < 0)
+        {
+            Die();
+        }
+    }
+    void Die()
+    {
+        Destroy(gameObject);
+    }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Enemy"))
+        {
+
+            OnDamaged(collision.transform.position);
+        }
+    }
+    void OnDamaged(Vector2 targetPos)
+    {
+        gameObject.layer = 10;
+        spriter.color = new Color(1, 0, 0, 0.4f);
+        if(headController != null)
+        {
+            headController.SetColor(new Color(1, 0, 0, 0.4f));
+        }
+        Invoke("OffDamaged", 0.2f);
+    }
+    void OffDamaged()
+    {
+        spriter.color = new Color(1, 1, 1, 1);
+        if(headController != null)
+        {
+            headController.SetColor(Color.white);
+        }
+        gameObject.layer = 0;
+    }
 }

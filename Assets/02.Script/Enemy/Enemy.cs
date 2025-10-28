@@ -1,3 +1,4 @@
+using System.Net.NetworkInformation;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -10,20 +11,20 @@ public class Enemy : MonoBehaviour
     [SerializeField] private Transform firePoint;
     [SerializeField] private float fireInterval = 1.0f;
     [SerializeField] private int bulletCount = 5;     
-    [SerializeField] private float spreadAngle = 45f; 
+    [SerializeField] private float spreadAngle = 45f;
+    [Header("°ø°Ý·Â")]
+    [SerializeField] private int damage = 1;
 
     private float fireTimer;
 
     private void Start()
     {
-        player = GameObject.FindWithTag("Player").transform;
-
+        player = PlayerController.PlayerCachedTransform;
         PoolManager.Instance.CreatPool(bulletPrefab, 20);
     }
 
     private void Update()
     {
-        Debug.Log("Player Reference: " + player);
 
         if (player == null) return;
 
@@ -50,6 +51,17 @@ public class Enemy : MonoBehaviour
 
             EnemyBullet bullet = PoolManager.Instance.GetFromPool(bulletPrefab);
             bullet.Init(firePoint.position, shotDir);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Player"))
+        {
+            if (collision.collider.TryGetComponent<PlayerController>(out var hp))
+            {
+                hp.TakeDamage(damage);
+            }
         }
     }
 

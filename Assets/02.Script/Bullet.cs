@@ -4,7 +4,7 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] private float speed = 3.0f;
     [SerializeField] private float bulletDistance = 1.0f;
-    [SerializeField] private int dameage = 1;
+    [SerializeField] private int damage = 1;
 
 
     private float spawnTime;
@@ -33,9 +33,9 @@ public class Bullet : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            if(collision.TryGetComponent<EnemyHp>(out var health))
+            if(collision.TryGetComponent<EnemyHp>(out var hp))
             {
-                health.TakeDamage(dameage);
+                hp.TakeDamage(damage);
             }
             ReturnPool();
         }

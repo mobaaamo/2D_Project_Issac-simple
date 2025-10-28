@@ -13,22 +13,20 @@ public class EnemyBoss : MonoBehaviour
     [SerializeField] private int bulletCount = 5;     
     [SerializeField] private float spreadAngle = 45f; 
 
-    [Header("플레이어 따라가기")]
+    [Header("이동속도")]
     [SerializeField] private float moveSpeed = 1.0f;
-    [SerializeField] private Transform target;
+
+    [Header("공격력")]
+    [SerializeField] private int damage = 1;
 
     private Vector2 startPos;
     private float fireTimer;
 
     private void Start()
     {
-        if (target == null)
-        {
-            target = GameObject.FindWithTag("Player")?.transform;
-        }
+        player = PlayerController.PlayerCachedTransform;
+
         startPos = transform.position;
-        
-        player = GameObject.FindWithTag("Player").transform;
 
         PoolManager.Instance.CreatPool(bulletPrefab, 20);
     }
@@ -48,7 +46,7 @@ public class EnemyBoss : MonoBehaviour
             FireSpread(dir);
             fireTimer = 0f;
         }
-        Vector2 playerDir  = (target.position - transform.position).normalized; //변수 이름 좀 바꾸자
+        Vector2 playerDir  = (player.position - transform.position).normalized; //변수 이름 좀 바꾸자
         transform.Translate(playerDir * moveSpeed * Time.deltaTime, Space.World);
     }
 
@@ -63,6 +61,16 @@ public class EnemyBoss : MonoBehaviour
 
             EnemyBullet bullet = PoolManager.Instance.GetFromPool(bulletPrefab);
             bullet.Init(firePoint.position, shotDir);
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Player"))
+        {
+            if (collision.collider.TryGetComponent<PlayerController>(out var hp))
+            {
+                hp.TakeDamage(damage);
+            }
         }
     }
 }
