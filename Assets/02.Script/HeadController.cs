@@ -71,4 +71,11 @@ public class HeadController : MonoBehaviour
         bullet.Init(shootPoint.position,lastDir);
         
     }
+    public void SetColor(Color color)
+    {
+        if (sr == null)
+            sr = GetComponent<SpriteRenderer>();
+
+        sr.color = color;
+    }
 }

@@ -238,10 +238,10 @@ GameObject:
   m_Component:
   - component: {fileID: 170954771}
   - component: {fileID: 170954770}
-  - component: {fileID: 170954772}
   - component: {fileID: 170954773}
   - component: {fileID: 170954774}
-  m_Layer: 0
+  - component: {fileID: 170954772}
+  m_Layer: 7
   m_Name: EnemyFollwer
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -328,7 +328,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 0.5
-  target: {fileID: 0}
+  damage: 1
 --- !u!58 &170954773
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -657,7 +657,7 @@ GameObject:
   - component: {fileID: 1569172115}
   - component: {fileID: 1569172119}
   - component: {fileID: 1569172118}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Boss
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -682,7 +682,7 @@ MonoBehaviour:
   bulletCount: 5
   spreadAngle: 45
   moveSpeed: 1
-  target: {fileID: 1708172010}
+  damage: 1
 --- !u!212 &1569172116
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -866,7 +866,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &1708172009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -879,7 +879,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0506d245d6439c747887d6ce18d18675, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  headController: {fileID: 8444031}
   moveSpeed: 2
+  maxHp: 2
 --- !u!4 &1708172010
 Transform:
   m_ObjectHideFlags: 0
@@ -1136,7 +1138,7 @@ GameObject:
   - component: {fileID: 1911765223}
   - component: {fileID: 1911765226}
   - component: {fileID: 1911765227}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -1160,6 +1162,7 @@ MonoBehaviour:
   fireInterval: 3
   bulletCount: 5
   spreadAngle: 45
+  damage: 1
 --- !u!212 &1911765224
 SpriteRenderer:
   m_ObjectHideFlags: 0
