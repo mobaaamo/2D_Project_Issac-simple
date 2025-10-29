@@ -11,6 +11,9 @@ public class PlayerController : MonoBehaviour
     [Header("Ã¼·Â")]
     [SerializeField] private int maxHp = 10;
 
+    [Header("ÃÑ¾Ë ÇÁ¸®Æé")]
+    [SerializeField] private Bullet bulletPrefab;
+
 
     private int currentHp;
 
@@ -59,7 +62,7 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHp -= damage;
-        if(currentHp < 0)
+        if(currentHp <= 0)
         {
             Die();
         }
@@ -95,5 +98,27 @@ public class PlayerController : MonoBehaviour
             headController.SetColor(Color.white);
         }
         gameObject.layer = 0;
+    }
+    public void ApplyItemEffect(ItemDataSO item)
+    {
+        switch (item.type)
+        {
+            case ItemType.AttackUp:
+                headController.AddDamage(item.power); break;
+
+
+            case ItemType.RangeUp:
+                headController.AddRange(item.power); break;
+
+            case ItemType.SpeedUp:
+                moveSpeed += item.power;break;
+
+            case ItemType.AttackSpeedUp:
+                headController.AddAttackSpeed(item.power); break;
+
+            case ItemType.Heal:
+                currentHp = Mathf.Min(maxHp, currentHp +item.power); break;
+
+        }
     }
 }

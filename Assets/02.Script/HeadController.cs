@@ -1,3 +1,4 @@
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.WSA;
 
@@ -20,6 +21,9 @@ public class HeadController : MonoBehaviour
     private Vector2 lastDir = Vector2.down;
     private SpriteRenderer sr;
 
+    private int damage = 1;
+    private float bulletSpeed = 3f;
+    private float bulletRange = 1f;
 
     private void Awake()
     {
@@ -68,8 +72,22 @@ public class HeadController : MonoBehaviour
     {
         
         Bullet bullet = PoolManager.Instance.GetFromPool(bulletPrefab);
-        bullet.Init(shootPoint.position,lastDir);
-        
+        bullet.SetStats(damage, bulletSpeed, bulletRange);
+        bullet.Init(shootPoint.position, lastDir);
+
+
+    }
+    public void AddDamage(int amount)
+    {
+        damage += amount;
+    }
+    public void AddAttackSpeed(float amout)
+    {
+        bulletSpeed+= amout;
+    }
+    public void AddRange(float amount)
+    {
+        bulletRange+= amount;
     }
     public void SetColor(Color color)
     {
