@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] private float speed = 3.0f;
-    [SerializeField] private float bulletDistance = 1.0f;
-    [SerializeField] private int damage = 1;
+    [SerializeField] public float attackspeed = 3.0f;
+    [SerializeField] public float bulletDistance = 1.0f;
+    [SerializeField] public int damage = 1;
 
 
     private float spawnTime;
@@ -18,8 +18,11 @@ public class Bullet : MonoBehaviour
     {
         transform.position = spawnPos;
         spawnTime = Time.time;
-        rb.velocity = dir.normalized * speed;
+        rb.velocity = dir.normalized * attackspeed;
+
+        Debug.Log($"[Bullet] 현재 데미지: {damage}");
     }
+
     private void Update()
     {
         if(Time.time - spawnTime >= bulletDistance) 
@@ -49,6 +52,18 @@ public class Bullet : MonoBehaviour
     {
         rb.velocity = Vector2.zero;
         PoolManager.Instance.ReturnPool(this);
+    }
+    void OnEnable()
+    {
+        damage = 1;
+        bulletDistance = 1.0f;
+        attackspeed = 3.0f;
+    }
+    public void SetStats(int dmg, float speed, float range)
+    {
+        damage = dmg;
+        attackspeed = speed;
+        bulletDistance = range;
     }
 
 }
