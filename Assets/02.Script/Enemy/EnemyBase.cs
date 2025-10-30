@@ -2,13 +2,15 @@ using UnityEngine;
 
 public class EnemyBase : MonoBehaviour
 {
-    private void OnEnable()
-    {
-        ItemSpawner.Instance?.RegisterEnemy();
-    }
+    private ItemSpawner spawner;
+    
 
     private void OnDisable()
     {
-        ItemSpawner.Instance?.UnregisterEnemy();
+        if (!Application.isPlaying) return;
+
+        if (ItemSpawner.Instance != null)
+            ItemSpawner.Instance.UnregisterEnemy();
     }
+
 }
