@@ -12,7 +12,7 @@ public class EnemyHp : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHp -= damage;
-        if (currentHp < 0)
+        if (currentHp <= 0)
         { 
             Die(); 
         }
