@@ -11,68 +11,111 @@ public class ItemSpawner : MonoBehaviour
     [SerializeField] private ShopManager shopManager;
     
     [Header("MapType")]
-    [SerializeField] private bool isBoosRoom = false;
+    [SerializeField] private bool isBossRoom = false;
     [SerializeField] private bool isShopRoom = false;
 
     [Header("카메라 참조")]
     [SerializeField] private Camera mainCamera;
 
-    private int totalEnemy = 0;
-    private int aliveEnemy = 0;
     private bool itemSpawned = false;
 
-    public static ItemSpawner Instance{  get; private set; }
+    //public static ItemSpawner Instance{  get; private set; }
 
-    private void Awake()
-    {
-        Instance = this;
-    }
+    //private void Awake()
+    //{
+    //    Instance = this;
+    //}
     private void Start()
     {
         if(mainCamera == null)
         {
             mainCamera = Camera.main;
         }
-        totalEnemy = GameObject.FindGameObjectsWithTag("Enemy").Length;
-        aliveEnemy = totalEnemy;
-        Debug.Log($"[ItemSpawner] 전투 시작! 총 적 수: {totalEnemy}");
 
     }
-    public void RegisterEnemy()
+
+    private void Update()
     {
+        if (itemSpawned) return; // 이미 생성했으면 패스
 
-        aliveEnemy++;
-        itemSpawned = false;
-        Debug.Log($"[ItemSpawner] 적 등록 → 현재 적 수: {aliveEnemy}");
+        //  카메라 화면 안에 있을 때만 작동
+        Vector3 v = mainCamera.WorldToViewportPoint(transform.position); //공부
+        if (v.z < 0 || v.x < 0 || v.x > 1 || v.y < 0 || v.y > 1) return;
 
-    }
-    public void UnregisterEnemy()
-    {
-        if (!gameObject.scene.isLoaded) return; //게임 정지시 아이템 스폰 되는것을 막음
-        aliveEnemy = Mathf.Max(0, aliveEnemy - 1);
-        Debug.Log($"[ItemSpawner] 적 사망 → 남은 적: {aliveEnemy}");
+        float dist = Vector2.Distance(mainCamera.transform.position, transform.position);  //공부
+        if (dist > 3.0f) return; // 방 간격의 절반 이하로 맞추기 (예: 방 간격이 9면 4.5)
 
 
-        if (aliveEnemy == 0 &&!itemSpawned)
+
+        int enemyCount = CountEnemiesInCamera();
+
+        if (enemyCount == 0)
         {
             itemSpawned = true;
-            if (isBoosRoom)
+            if (isBossRoom)
             {
+                Debug.Log("[ItemSpawner] 보스룸은 아이템 생성 안 함");
                 return;
             }
-            if (isShopRoom) 
+
+            if (isShopRoom)
             {
-                shopManager.OpenShop();
+                shopManager?.OpenShop();
+                Debug.Log("[ItemSpawner] 상점 오픈");
             }
             else
             {
                 Spawn();
             }
-            itemSpawned = true;
-
         }
     }
+    //public void RegisterEnemy()
+    //{
 
+    //    aliveEnemy++;
+    //    itemSpawned = false;
+
+    //}
+    //public void UnregisterEnemy()
+    //{
+    //    if (!gameObject.scene.isLoaded) return; //게임 정지시 아이템 스폰 되는것을 막음
+    //    aliveEnemy = Mathf.Max(0, aliveEnemy - 1);
+
+
+    //    if (aliveEnemy == 0 &&!itemSpawned)
+    //    {
+    //        itemSpawned = true;
+    //        if (isBoosRoom)
+    //        {
+    //            return;
+    //        }
+    //        if (isShopRoom) 
+    //        {
+    //            shopManager.OpenShop();
+    //        }
+    //        else
+    //        {
+    //            Spawn();
+    //        }
+    //        itemSpawned = true;
+
+    //    }
+    //}
+    private int CountEnemiesInCamera()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        int count = 0;
+
+        foreach (var e in enemies)
+        {
+            if (e == null) continue;
+
+            Vector3 pos = mainCamera.WorldToViewportPoint(e.transform.position); //공부
+            bool inView = pos.z > 0 && pos.x > 0 && pos.x < 1 && pos.y > 0 && pos.y < 1;
+            if (inView) count++;
+        }
+        return count;
+    }
     private void Spawn()
     {
         if (itemPrefab == null || itemPrefab.Count == 0) return;
@@ -84,14 +127,11 @@ public class ItemSpawner : MonoBehaviour
 
 
         Instantiate(itemPrefab[index], spawnPos, Quaternion.identity);
-        Debug.Log($"[ItemSpawner] {prefab.name} 아이템 소환 완료!");
 
 
     }
     public void ResetSpawner() // 맵매니저만들때 이거 사용
     {
-        totalEnemy = 0;
-        aliveEnemy = 0;
         itemSpawned= false;
         shopManager?.ResetShop();
     }

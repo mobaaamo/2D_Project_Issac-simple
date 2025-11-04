@@ -23,7 +23,7 @@ public class ItemObject : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
-    public void SetItemData(ItemDataSO data)
+    public void SetItemData(ItemDataSO data) //°øºÎ
     {
         itemData = data;
     }

@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
     private static readonly int moveSpeedXHash = Animator.StringToHash("MoveX");
     private static readonly int moveSpeedYHash = Animator.StringToHash("MoveY");
 
-    public static Transform PlayerCachedTransform { get; private set; }
+    public static Transform PlayerCachedTransform { get; private set; } //변수 이름 바꾸자 쉽게, Enemy 스크립트 전부 있으니 바꾸고 걔들도 바꿔
     
     private void Awake()
     {
