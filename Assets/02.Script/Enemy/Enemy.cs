@@ -15,12 +15,18 @@ public class Enemy : MonoBehaviour
     [Header("°ø°Ý·Â")]
     [SerializeField] private int damage = 1;
 
+    [Header("PlayerCheck")]
+    [SerializeField] private Transform playerCheck;
+    [SerializeField] private Vector2 playerCheckBox = new Vector2(4f, 3f);
+    [SerializeField] private LayerMask playerLayer;
+
+    private bool canAttack = false;
     private float fireTimer;
 
     private void Start()
     {
         player = PlayerController.PlayerCachedTransform;
-        PoolManager.Instance.CreatPool(bulletPrefab, 20);
+        PoolManager.Instance.CreatPool(bulletPrefab, 40);
     }
 
     private void Update()
@@ -28,26 +34,29 @@ public class Enemy : MonoBehaviour
 
         if (player == null) return;
 
-        fireTimer += Time.deltaTime;
+        canAttack = Physics2D.OverlapBox(playerCheck.position, playerCheckBox, 0f, playerLayer);
+        if(!canAttack) return;
 
-        Vector2 dir = (player.position - transform.position).normalized;
-        transform.right = dir; 
+        fireTimer += Time.deltaTime;
 
         if (fireTimer >= fireInterval)
         {
-            FireSpread(dir);
+            AttackPlayer();
             fireTimer = 0f;
         }
     }
 
-    void FireSpread(Vector2 centerDir)
+    void AttackPlayer()
     {
+
+        Vector2 dir = (player.position - transform.position).normalized;
+
         float startAngle = -spreadAngle * 0.5f;
 
         for (int i = 0; i < bulletCount; i++)
         {
             float angleOffset = startAngle + (spreadAngle / (bulletCount - 1)) * i;
-            Vector2 shotDir = Quaternion.Euler(0, 0, angleOffset) * centerDir;
+            Vector2 shotDir = Quaternion.Euler(0, 0, angleOffset) * dir;
 
             EnemyBullet bullet = PoolManager.Instance.GetFromPool(bulletPrefab);
             bullet.Init(firePoint.position, shotDir);
@@ -63,6 +72,13 @@ public class Enemy : MonoBehaviour
                 hp.TakeDamage(damage);
             }
         }
+    }
+    private void OnDrawGizmosSelected()
+    {
+        if (playerCheck == null) return;
+
+        Gizmos.color = canAttack ? Color.red : Color.gray;
+        Gizmos.DrawWireCube(playerCheck.position, playerCheckBox);
     }
 
 }

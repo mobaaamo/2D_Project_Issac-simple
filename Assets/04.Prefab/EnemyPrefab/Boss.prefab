@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2547280206923171623
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7426671345242007012}
+  m_Layer: 7
+  m_Name: PlayerCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7426671345242007012
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2547280206923171623}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.54, y: -1.17, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8511277152770602119}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4056345414777867833
 GameObject:
   m_ObjectHideFlags: 0
@@ -13,7 +44,6 @@ GameObject:
   - component: {fileID: 1649357266812912101}
   - component: {fileID: 298125618408653068}
   - component: {fileID: 1464898487156911855}
-  - component: {fileID: 6001105632780985011}
   m_Layer: 7
   m_Name: Boss
   m_TagString: Enemy
@@ -33,7 +63,8 @@ Transform:
   m_LocalPosition: {x: -2.934, y: -0.844, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 7426671345242007012}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &3108718593520520972
@@ -107,6 +138,11 @@ MonoBehaviour:
   spreadAngle: 45
   moveSpeed: 1
   damage: 1
+  playerCheck: {fileID: 7426671345242007012}
+  playerCheckBox: {x: 8, y: 5.5}
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!58 &298125618408653068
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -155,15 +191,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHp: 10
---- !u!114 &6001105632780985011
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4056345414777867833}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 056b9e3490dc84445b7055a08ae87a60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
