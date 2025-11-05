@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class EnemyFollower : MonoBehaviour
 {
-    [Header("타겟")]
+    [Header("Target")]
     private Transform player;
-    [Header("이동속도")]
+    [Header("Move Speed")]
     [SerializeField] private float moveSpeed = 0.5f;
-    [Header("공격력")]
+    [Header("Damage")]
     [SerializeField] private int damage = 1;
 
     [Header("PlayerCheck")]
@@ -20,7 +20,7 @@ public class EnemyFollower : MonoBehaviour
     private Vector2 startPos;
     void Start()
     {
-        player = PlayerController.PlayerCachedTransform;
+        player = PlayerController.PlayerTransform;
         startPos = transform.position;
         fixCheckBox = playerCheck.position;
 

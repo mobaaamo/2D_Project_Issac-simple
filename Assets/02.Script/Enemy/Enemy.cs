@@ -3,16 +3,16 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [Header("타겟")]
+    [Header("Target")]
     private Transform player;
 
-    [Header("공격 세팅")]
+    [Header("Attack Setting")]
     [SerializeField] private EnemyBullet bulletPrefab;    
     [SerializeField] private Transform firePoint;
     [SerializeField] private float fireInterval = 1.0f;
     [SerializeField] private int bulletCount = 5;     
     [SerializeField] private float spreadAngle = 45f;
-    [Header("공격력")]
+    [Header("Damage")]
     [SerializeField] private int damage = 1;
 
     [Header("PlayerCheck")]
@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour
 
     private void Start()
     {
-        player = PlayerController.PlayerCachedTransform;
+        player = PlayerController.PlayerTransform;
         PoolManager.Instance.CreatPool(bulletPrefab, 40);
     }
 

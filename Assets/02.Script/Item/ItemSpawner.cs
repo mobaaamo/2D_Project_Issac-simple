@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ItemSpawner : MonoBehaviour
 {
-    [Header("아이템 프리팹")]
+    [Header("ItemPrefab")]
     [SerializeField] private List<GameObject> itemPrefab = new List<GameObject>();
 
     [Header("ShopManager")]
@@ -14,17 +14,11 @@ public class ItemSpawner : MonoBehaviour
     [SerializeField] private bool isBossRoom = false;
     [SerializeField] private bool isShopRoom = false;
 
-    [Header("카메라 참조")]
+    [Header("Camera")]
     [SerializeField] private Camera mainCamera;
 
     private bool itemSpawned = false;
 
-    //public static ItemSpawner Instance{  get; private set; }
-
-    //private void Awake()
-    //{
-    //    Instance = this;
-    //}
     private void Start()
     {
         if(mainCamera == null)
@@ -36,16 +30,13 @@ public class ItemSpawner : MonoBehaviour
 
     private void Update()
     {
-        if (itemSpawned) return; // 이미 생성했으면 패스
+        if (itemSpawned) return; 
 
-        //  카메라 화면 안에 있을 때만 작동
         Vector3 v = mainCamera.WorldToViewportPoint(transform.position); //공부
         if (v.z < 0 || v.x < 0 || v.x > 1 || v.y < 0 || v.y > 1) return;
 
         float dist = Vector2.Distance(mainCamera.transform.position, transform.position);  //공부
         if (dist > 3.0f) return; // 방 간격의 절반 이하로 맞추기 (예: 방 간격이 9면 4.5)
-
-
 
         int enemyCount = CountEnemiesInCamera();
 
@@ -54,14 +45,12 @@ public class ItemSpawner : MonoBehaviour
             itemSpawned = true;
             if (isBossRoom)
             {
-                Debug.Log("[ItemSpawner] 보스룸은 아이템 생성 안 함");
                 return;
             }
 
             if (isShopRoom)
             {
                 shopManager?.OpenShop();
-                Debug.Log("[ItemSpawner] 상점 오픈");
             }
             else
             {
@@ -69,38 +58,6 @@ public class ItemSpawner : MonoBehaviour
             }
         }
     }
-    //public void RegisterEnemy()
-    //{
-
-    //    aliveEnemy++;
-    //    itemSpawned = false;
-
-    //}
-    //public void UnregisterEnemy()
-    //{
-    //    if (!gameObject.scene.isLoaded) return; //게임 정지시 아이템 스폰 되는것을 막음
-    //    aliveEnemy = Mathf.Max(0, aliveEnemy - 1);
-
-
-    //    if (aliveEnemy == 0 &&!itemSpawned)
-    //    {
-    //        itemSpawned = true;
-    //        if (isBoosRoom)
-    //        {
-    //            return;
-    //        }
-    //        if (isShopRoom) 
-    //        {
-    //            shopManager.OpenShop();
-    //        }
-    //        else
-    //        {
-    //            Spawn();
-    //        }
-    //        itemSpawned = true;
-
-    //    }
-    //}
     private int CountEnemiesInCamera()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");

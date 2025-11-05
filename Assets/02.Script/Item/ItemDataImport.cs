@@ -5,7 +5,6 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Networking;
 
-//구글스프레드 시트에서 아이템 데이터 들고와서 스크립터블 오브젝트로 변환
 public class ItemDataImport : EditorWindow
 {
     public string csvURL = "https://docs.google.com/spreadsheets/d/1D5XoMddGyAS8iof8kiuII3nyqC1Acl5ET0FhfaDJfYI/export?format=csv";
