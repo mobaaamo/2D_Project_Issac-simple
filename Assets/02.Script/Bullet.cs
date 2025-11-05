@@ -19,8 +19,6 @@ public class Bullet : MonoBehaviour
         transform.position = spawnPos;
         spawnTime = Time.time;
         rb.velocity = dir.normalized * attackspeed;
-
-        //Debug.Log($"[Bullet] 현재 데미지: {damage}");
     }
 
     private void Update()
@@ -53,12 +51,6 @@ public class Bullet : MonoBehaviour
         rb.velocity = Vector2.zero;
         PoolManager.Instance.ReturnPool(this);
     }
-    //void OnEnable()
-    //{
-    //    damage = 1;
-    //    bulletDistance = 1.0f;
-    //    attackspeed = 3.0f;
-    //}
     public void SetStats(int dmg, float speed, float range)
     {
         damage = dmg;

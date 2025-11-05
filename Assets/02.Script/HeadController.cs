@@ -43,10 +43,10 @@ public class HeadController : MonoBehaviour
         float moveY = 0;
 
 
-        if (Input.GetKey(KeyCode.LeftArrow)) moveX = -1;
-        if (Input.GetKey(KeyCode.RightArrow)) moveX = 1;
-        if (Input.GetKey(KeyCode.UpArrow)) moveY = 1;
-        if (Input.GetKey(KeyCode.DownArrow)) moveY = -1;
+        if (Input.GetKey(KeyCode.LeftArrow)) moveX = -1; 
+        if (Input.GetKey(KeyCode.RightArrow)) moveX = 1; 
+        if (Input.GetKey(KeyCode.UpArrow)) moveY = 1; 
+        if (Input.GetKey(KeyCode.DownArrow)) moveY = -1; 
 
         if (moveX != 0 || moveY != 0) 
         {

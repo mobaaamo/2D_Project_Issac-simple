@@ -3,20 +3,20 @@ using UnityEngine;
 
 public class EnemyBoss : MonoBehaviour
 {
-    [Header("타겟")]
+    [Header("Target")]
     private Transform player;
 
-    [Header("공격 세팅")]
+    [Header("Attack Setting")]
     [SerializeField] private EnemyBullet bulletPrefab;
     [SerializeField] private Transform firePoint;
     [SerializeField] private float fireInterval = 1.0f;
     [SerializeField] private int bulletCount = 5;     
     [SerializeField] private float spreadAngle = 45f; 
 
-    [Header("이동속도")]
+    [Header("Move Speed")]
     [SerializeField] private float moveSpeed = 1.0f;
 
-    [Header("공격력")]
+    [Header("Damage")]
     [SerializeField] private int damage = 1;
 
 
@@ -25,7 +25,7 @@ public class EnemyBoss : MonoBehaviour
     [SerializeField] private Vector2 playerCheckBox = new Vector2(8f, 5.5f);
     [SerializeField] private LayerMask playerLayer;
 
-
+    private EnemyHp enemyHp;
     private bool canAttack = false;
     private Vector2 fixCheckBox;
 
@@ -34,19 +34,22 @@ public class EnemyBoss : MonoBehaviour
 
     private void Start()
     {
-        player = PlayerController.PlayerCachedTransform;
+        player = PlayerController.PlayerTransform;
 
         startPos = transform.position;
 
         PoolManager.Instance.CreatPool(bulletPrefab, 50);
 
         fixCheckBox = playerCheck.position;
+
+        enemyHp = GetComponent<EnemyHp>();
     }
 
     private void Update()
     {
 
         if (player == null) return;
+
 
         canAttack = Physics2D.OverlapBox(playerCheck.position, playerCheckBox, 0f, playerLayer);
         if (!canAttack) return;

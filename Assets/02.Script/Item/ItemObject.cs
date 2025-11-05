@@ -12,6 +12,8 @@ public class ItemObject : MonoBehaviour
         if (pickUp) return;
         if (collision.CompareTag("Player"))
         {
+            SoundManager.instance.playerPowerUp.Play();
+
             PlayerController player = collision.GetComponent<PlayerController>();
             if (player != null)
             {

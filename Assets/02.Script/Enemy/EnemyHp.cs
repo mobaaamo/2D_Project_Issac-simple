@@ -19,6 +19,13 @@ public class EnemyHp : MonoBehaviour
     }
     void Die()
     {
+        if (TryGetComponent<EnemyBoss>(out var boss))
+        { 
+            if(GameManager.instance != null)
+            {
+                GameManager.instance.SetState(GameManager.GameState.GameClear);
+            }
+        }
         Destroy(gameObject);
     }
 }
