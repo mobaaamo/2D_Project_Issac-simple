@@ -73,17 +73,11 @@ public class PlayerController : MonoBehaviour
         {
             isDead = true;
             StartCoroutine(DieDelay());
-            //Die();
             return;
         }
         OnDamaged(transform.position);
 
     }
-    //public void Die()
-    //{
-    //    gameObject.SetActive(false);
-    //    GameManager.instance.SetState(GameManager.GameState.GameOver);
-    //}
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -119,7 +113,7 @@ public class PlayerController : MonoBehaviour
         switch (item.type)
         {
             case ItemType.AttackUp:
-                headController.AddDamage(item.power); break;
+                headController.AddDamage((int)item.power); break;
 
 
             case ItemType.RangeUp:
@@ -132,7 +126,7 @@ public class PlayerController : MonoBehaviour
                 headController.AddAttackSpeed(item.power); break;
 
             case ItemType.Heal:
-                currentHp = Mathf.Min(maxHp, currentHp + item.power); break;
+                currentHp = Mathf.Min(maxHp, currentHp + (int)item.power); break;
 
         }
     }

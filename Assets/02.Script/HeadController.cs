@@ -18,13 +18,12 @@ public class HeadController : MonoBehaviour
     [SerializeField] private float shootInterval = 0.25f;
 
     private float shootTimer;
-    private Vector2 lastDir = Vector2.down;
+    private Vector2 lastDir = Vector2.down; //처음 시작시 아래 방향을 봄
     private SpriteRenderer sr;
 
-    private int damage = 1;
-    private float bulletSpeed = 3f;
-    private float bulletRange = 1f;
-
+    private int damage;
+    private float bulletSpeed;
+    private float bulletRange;
     private void Awake()
     {
         sr = GetComponent<SpriteRenderer>();
@@ -33,6 +32,10 @@ public class HeadController : MonoBehaviour
     private void Start()
     {
         PoolManager.Instance.CreatPool(bulletPrefab, 20);
+        damage = bulletPrefab.damage; // bulletPrefab 현재 상태로 초기화
+        bulletSpeed = bulletPrefab.attackspeed; //bulletPrefab 현재 상태로 초기화
+        bulletRange = bulletPrefab.bulletDistance; //bulletPrefab 현재 상태로 초기화
+
     }
 
     void LateUpdate()
