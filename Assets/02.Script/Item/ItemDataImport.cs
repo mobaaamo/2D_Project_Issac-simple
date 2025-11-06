@@ -51,7 +51,7 @@ public class ItemDataImport : EditorWindow
             item.ID = int.Parse(values[0]);
             item.itemName = values[1];
             item.type = (ItemType)System.Enum.Parse(typeof(ItemType), values[2]);
-            item.power = int.Parse(values[3]); 
+            item.power = float.Parse(values[3].Trim());
             item.description = values[4]; 
 
             string assetPath = $"{savePath}/Item_{item.ID}_{item.itemName}.asset";

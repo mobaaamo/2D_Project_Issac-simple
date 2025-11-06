@@ -6,6 +6,6 @@ public class ItemDataSO : ScriptableObject
     public int ID;
     public string itemName;
     public ItemType type;
-    public int power;
+    public float power;
     public string description;
 }
