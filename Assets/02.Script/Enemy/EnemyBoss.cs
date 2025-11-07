@@ -8,10 +8,14 @@ public class EnemyBoss : MonoBehaviour
 
     [Header("Attack Setting")]
     [SerializeField] private EnemyBullet bulletPrefab;
+    [SerializeField] private EnemyFollower EnemyPrefab;
     [SerializeField] private Transform firePoint;
     [SerializeField] private float fireInterval = 1.0f;
     [SerializeField] private int bulletCount = 5;     
-    [SerializeField] private float spreadAngle = 45f; 
+    [SerializeField] private float spreadAngle = 45f;
+
+    [Header("Spawn Setting")]
+    [SerializeField] private float spawnDelay = 5.0f;
 
     [Header("Move Speed")]
     [SerializeField] private float moveSpeed = 1.0f;
@@ -31,7 +35,7 @@ public class EnemyBoss : MonoBehaviour
 
     private Vector2 startPos;
     private float fireTimer;
-
+    private float spawnTimer;
     private void Start()
     {
         player = PlayerController.PlayerTransform;
@@ -39,6 +43,7 @@ public class EnemyBoss : MonoBehaviour
         startPos = transform.position;
 
         PoolManager.Instance.CreatPool(bulletPrefab, 50);
+        PoolManager.Instance.CreatPool(EnemyPrefab, 5);
 
         fixCheckBox = playerCheck.position;
 
@@ -55,11 +60,17 @@ public class EnemyBoss : MonoBehaviour
         if (!canAttack) return;
 
         fireTimer += Time.deltaTime;
+        spawnTimer += Time.deltaTime;
 
         if (fireTimer >= fireInterval)
         {
             AttackPlayer();
             fireTimer = 0f;
+        }
+        if(spawnTimer >= spawnDelay)
+        {
+            SpawnFollower();
+            spawnTimer = 0f;
         }
         Vector2 playerDir = (player.position - transform.position).normalized;
         transform.Translate(playerDir * moveSpeed * Time.deltaTime, Space.World);
@@ -92,6 +103,16 @@ public class EnemyBoss : MonoBehaviour
             {
                 hp.TakeDamage(damage);
             }
+        }
+    }
+    void SpawnFollower()
+    {
+        EnemyFollower follower = PoolManager.Instance.GetFromPool(EnemyPrefab);
+        if (follower != null)
+        {
+
+            follower.transform.position = transform.position;
+            follower.gameObject.SetActive(true);
         }
     }
     private void OnDrawGizmosSelected()

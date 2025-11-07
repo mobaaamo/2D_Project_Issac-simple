@@ -108,8 +108,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 1
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: 1195404682, guid: 2e9f671755b59554591397d8b6abc76b, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -132,11 +132,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 8331183241591250244, guid: 0ef41ab1299703d4bb8ad969dcc03ca7, type: 3}
+  EnemyPrefab: {fileID: 5466579827921654365, guid: 7be4f2e98de3bfe4f9de755672075118, type: 3}
   firePoint: {fileID: 8511277152770602119}
   fireInterval: 1
   bulletCount: 5
   spreadAngle: 45
-  moveSpeed: 1
+  spawnDelay: 5
+  moveSpeed: 0.5
   damage: 1
   playerCheck: {fileID: 7426671345242007012}
   playerCheckBox: {x: 8, y: 5.5}
