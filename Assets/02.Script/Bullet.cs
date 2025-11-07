@@ -18,6 +18,8 @@ public class Bullet : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
     }
+
+
     public void Init(Vector2 spawnPos, Vector2 dir)
     {
         transform.position = spawnPos;
@@ -27,7 +29,8 @@ public class Bullet : MonoBehaviour
         rb.gravityScale = 0f;
         rb.velocity = dir.normalized * attackspeed;
     }
-
+    
+    // Bullet 끝부분 포물선 설정
     private void Update()
     {
         float elapsed = Time.time - spawnTime;
@@ -42,7 +45,7 @@ public class Bullet : MonoBehaviour
             StartCoroutine(ExplodeAndReturn());
         }
     }
-
+    //적에게 데미지 벽에 닿으면 풀로 리턴
     void OnTriggerEnter2D(Collider2D collision)  
     {
         if (collision.CompareTag("Enemy"))
@@ -71,7 +74,7 @@ public class Bullet : MonoBehaviour
         attackspeed = speed;
         bulletDistance = range;
     }
-
+    //끝 부분에서 터지는 애니메이션 재생
     private IEnumerator ExplodeAndReturn()
     {
         rb.velocity = Vector2.zero;

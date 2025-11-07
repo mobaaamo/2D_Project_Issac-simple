@@ -46,6 +46,7 @@ public class PlayerController : MonoBehaviour
         originalSprite = sprite.sprite;
 
     }
+    //이동
     void Update()
     {
         moveInput = Vector2.zero;
@@ -71,6 +72,7 @@ public class PlayerController : MonoBehaviour
         Vector2 newPos = rb.position + new Vector2(moveInput.x, moveInput.y) * moveSpeed * Time.deltaTime;
         rb.MovePosition(newPos);
     }
+    //공격받음
     public void TakeDamage(int damage)
     {
         SoundManager.instance.playerHit.Play();
@@ -88,6 +90,7 @@ public class PlayerController : MonoBehaviour
         OnDamaged(transform.position);
 
     }
+    //Enemy닿으면 무적
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.CompareTag("Enemy"))
@@ -135,6 +138,7 @@ public class PlayerController : MonoBehaviour
         }
         gameObject.layer = 8;
     }
+    //아이템 효과적용
     public void ApplyItemEffect(ItemDataSO item)
     {
         switch (item.type)
@@ -157,6 +161,7 @@ public class PlayerController : MonoBehaviour
 
         }
     }
+    //Die 애니메이션 재생
     private IEnumerator DieDelay()
     {
         SoundManager.instance.playerDie.Play();

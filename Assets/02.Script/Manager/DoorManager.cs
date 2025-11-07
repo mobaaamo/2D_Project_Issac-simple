@@ -11,12 +11,13 @@ public class DoorManager : MonoBehaviour
     [Header("Camera")]
     [SerializeField] private Camera mainCamera;
 
+    //시작 시 문 상태 초기화
     private void Start()
     {
         if (mainCamera == null) mainCamera = Camera.main;
         UpdateDoor(false);
     }
-
+    //카메라 내 적 존재 체크
     private void Update()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -33,7 +34,7 @@ public class DoorManager : MonoBehaviour
 
         UpdateDoor(count == 0);
     }
-
+    // 문 상태 갱신
     private void UpdateDoor(bool isOpen)
     {
         if(closerDoor != null)

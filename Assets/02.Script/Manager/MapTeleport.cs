@@ -18,7 +18,7 @@ public class MapTeleport : MonoBehaviour
     {
         StartCoroutine(ReenableAfterDelay());
     }
-
+    // 반대 포탈로 Player와 카메라 이동
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.CompareTag("Player")) return;
@@ -31,7 +31,7 @@ public class MapTeleport : MonoBehaviour
 
         StartCoroutine(DisableBothForSeconds());
     }
-
+    // 이동 시 양쪽 Collider 잠시 비활성화
     private IEnumerator DisableBothForSeconds()
     {
         Collider2D otherCol = null;
@@ -46,6 +46,7 @@ public class MapTeleport : MonoBehaviour
         if (myCollider != null) myCollider.enabled = true;
         if (otherCol != null) otherCol.enabled = true;
     }
+    // 이동 후 Collider 활성화
 
     private IEnumerator ReenableAfterDelay()
     {

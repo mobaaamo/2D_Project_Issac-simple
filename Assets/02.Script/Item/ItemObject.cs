@@ -6,7 +6,7 @@ public class ItemObject : MonoBehaviour
     private ShopManager shopManager;
     private bool pickUp = false;
 
-
+    //아이템 획득 시 효과 적용 및 사운드 재생
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (pickUp) return;

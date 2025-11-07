@@ -14,12 +14,14 @@ public class EnemyBullet : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
     }
+    //지정된 위치에서 발사
     public void Init(Vector2 spawnPos, Vector2 dir)
     {
         transform.position = spawnPos;
         spawnTime = Time.time;
         rb.velocity = dir.normalized * speed;
     }
+    //총알 최대 거리
     private void Update()
     {
         if (Time.time - spawnTime >= bulletDistance)

@@ -15,6 +15,7 @@ public class HealthDisplay : MonoBehaviour
 
     public PlayerController playerHealth;
 
+    //상단 체력방 게이지
     void Update()
     {
         health = playerHealth.currentHp;
