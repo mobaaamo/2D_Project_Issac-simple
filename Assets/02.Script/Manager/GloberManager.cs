@@ -15,7 +15,7 @@ public static class GloberManager
         }
 
     }
-    private static void CreatManager<T>(ref T manager, string name) where T : Component
+    private static void CreateManager<T>(ref T manager, string name) where T : Component
     {
         if (manager == null)
         {
@@ -35,7 +35,7 @@ public static class GloberManager
     {
         get
         {
-            CreatManager(ref _pool, "PoolManager");
+            CreateManager(ref _pool, "PoolManager");
             return _pool;
         }
     }

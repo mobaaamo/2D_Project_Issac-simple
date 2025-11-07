@@ -16,8 +16,14 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if(instance == null) instance = this;
-        else Destroy(gameObject);
+        if (instance == null)
+        { 
+            instance = this; 
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
     private void Start()
     {
@@ -103,9 +109,7 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.R))
         {
             SoundManager.instance.GameClear.Stop();
-
             Time.timeScale = 1f;
-
             SceneManager.LoadScene("SampleScene");
             SetState(GameState.GameReady);
         }

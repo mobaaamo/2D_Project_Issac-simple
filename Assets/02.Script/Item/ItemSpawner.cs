@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ItemSpawner : MonoBehaviour
@@ -19,6 +18,9 @@ public class ItemSpawner : MonoBehaviour
 
     private bool itemSpawned = false;
 
+    private float checkInterval = 0.5f;
+    private float checkTiemr = 0f;    
+
     private void Start()
     {
         if(mainCamera == null)
@@ -32,11 +34,12 @@ public class ItemSpawner : MonoBehaviour
     {
         if (itemSpawned) return; 
 
-        Vector3 v = mainCamera.WorldToViewportPoint(transform.position); //공부
-        if (v.z < 0 || v.x < 0 || v.x > 1 || v.y < 0 || v.y > 1) return;
+        checkTiemr += Time.deltaTime;
+        if (checkTiemr < checkInterval) return;
+        checkTiemr = 0f;
 
-        float dist = Vector2.Distance(mainCamera.transform.position, transform.position);  //공부
-        if (dist > 3.0f) return; // 방 간격의 절반 이하로 맞추기 (예: 방 간격이 9면 4.5)
+        Vector3 veiw = mainCamera.WorldToViewportPoint(transform.position);
+        if (veiw.z < 0 || veiw.x < 0 || veiw.x > 1 || veiw.y < 0 || veiw.y > 1) return;
 
         int enemyCount = CountEnemiesInCamera();
 
@@ -50,7 +53,10 @@ public class ItemSpawner : MonoBehaviour
 
             if (isShopRoom)
             {
-                shopManager?.OpenShop();
+                if (shopManager != null)
+                {
+                    shopManager.OpenShop();
+                }
             }
             else
             {
@@ -63,11 +69,11 @@ public class ItemSpawner : MonoBehaviour
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         int count = 0;
 
-        foreach (var e in enemies)
+        foreach (var enemy in enemies)
         {
-            if (e == null) continue;
+            if (enemy == null) continue;
 
-            Vector3 pos = mainCamera.WorldToViewportPoint(e.transform.position); //공부
+            Vector3 pos = mainCamera.WorldToViewportPoint(enemy.transform.position);
             bool inView = pos.z > 0 && pos.x > 0 && pos.x < 1 && pos.y > 0 && pos.y < 1;
             if (inView) count++;
         }
@@ -84,12 +90,5 @@ public class ItemSpawner : MonoBehaviour
 
 
         Instantiate(itemPrefab[index], spawnPos, Quaternion.identity);
-
-
-    }
-    public void ResetSpawner() // 맵매니저만들때 이거 사용
-    {
-        itemSpawned= false;
-        shopManager?.ResetShop();
     }
 }

@@ -14,7 +14,7 @@ public class DoorManager : MonoBehaviour
     private void Start()
     {
         if (mainCamera == null) mainCamera = Camera.main;
-        UpdateDoor(false); // Ã³À½¿£ ´ÝÈù ¹®
+        UpdateDoor(false);
     }
 
     private void Update()

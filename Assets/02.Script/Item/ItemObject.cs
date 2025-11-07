@@ -25,7 +25,7 @@ public class ItemObject : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
-    public void SetItemData(ItemDataSO data) //°øºÎ
+    public void SetItemData(ItemDataSO data)
     {
         itemData = data;
     }

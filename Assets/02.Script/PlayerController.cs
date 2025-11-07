@@ -1,7 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.Rendering;
-using UnityEngine.U2D;
 
 public class PlayerController : MonoBehaviour
 {
@@ -90,11 +88,8 @@ public class PlayerController : MonoBehaviour
         OnDamaged(transform.position);
 
     }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        
-
         if (collision.collider.CompareTag("Enemy"))
         {
             gameObject.layer = 10;
@@ -107,7 +102,6 @@ public class PlayerController : MonoBehaviour
         {
             playerAnim.enabled = false;
         }
-
         sprite.color = new Color(1, 0, 0, 0.4f);
         if (playerHit != null)
         { 

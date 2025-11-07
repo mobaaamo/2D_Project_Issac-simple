@@ -11,14 +11,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject gameClearUI;
     private float gameOverDelay = 2.5f;
 
-    GameManager.GameState gameStateCache;
-
     private void Awake()
     {
             Instance = this;
-
     }
-
     public void ShowGameStartUI()
     {
         if (gameStartUI != null) gameStartUI.SetActive(true);

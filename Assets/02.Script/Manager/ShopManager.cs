@@ -1,13 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class ShopManager : MonoBehaviour
 {
-    [Header("아이템 프리펩")]
+    [Header("ItemPrefab")]
     [SerializeField] private List<GameObject> itemPrefab = new List<GameObject>();
 
-    [Header("아이템 생성 위치")]
+    [Header("ItemSpawnPoint")]
     [SerializeField] private Transform[] spawnPoints;
 
     private List<GameObject> spawnedItems = new List<GameObject>();
@@ -49,15 +48,6 @@ public class ShopManager : MonoBehaviour
             {
                 Destroy(item);
             }
-        }
-        spawnedItems.Clear();
-    }
-    public void ResetShop()
-    {
-        itemChosen = false;
-        foreach(var item in spawnedItems)
-        {
-            if(item!=null)Destroy(item);
         }
         spawnedItems.Clear();
     }

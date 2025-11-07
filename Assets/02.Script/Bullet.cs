@@ -74,16 +74,12 @@ public class Bullet : MonoBehaviour
 
     private IEnumerator ExplodeAndReturn()
     {
-
-        // 이동 멈추기
         rb.velocity = Vector2.zero;
         rb.gravityScale = 0f;
 
-        // 애니메이션 트리거 (Hit)
         anim.Play("TearsHit");
         yield return null;
 
-        // 현재 재생 중인 애니메이션 길이만큼 기다림
         AnimatorStateInfo state = anim.GetCurrentAnimatorStateInfo(0);
         float animTime = state.length;
 
