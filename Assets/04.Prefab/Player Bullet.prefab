@@ -293,7 +293,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackspeed: 3
   bulletDistance: 0.5
-  damage: 10
+  damage: 2
 --- !u!95 &179924832220217127
 Animator:
   serializedVersion: 5

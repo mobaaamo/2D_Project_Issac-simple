@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,10 +14,6 @@ public class HealthDisplay : MonoBehaviour
     public Image[] hearts;
 
     public PlayerController playerHealth;
-    void Start()
-    {
-        
-    }
 
     void Update()
     {

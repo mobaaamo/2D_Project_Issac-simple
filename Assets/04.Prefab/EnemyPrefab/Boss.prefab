@@ -135,7 +135,7 @@ MonoBehaviour:
   EnemyPrefab: {fileID: 5466579827921654365, guid: 7be4f2e98de3bfe4f9de755672075118, type: 3}
   firePoint: {fileID: 8511277152770602119}
   fireInterval: 1
-  bulletCount: 5
+  bulletCount: 4
   spreadAngle: 45
   spawnDelay: 5
   moveSpeed: 0.5

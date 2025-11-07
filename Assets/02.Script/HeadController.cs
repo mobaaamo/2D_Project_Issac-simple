@@ -1,6 +1,4 @@
-using System.Reflection;
 using UnityEngine;
-using UnityEngine.WSA;
 
 public class HeadController : MonoBehaviour
 {
@@ -18,7 +16,7 @@ public class HeadController : MonoBehaviour
     [SerializeField] private float shootInterval = 0.25f;
 
     private float shootTimer;
-    private Vector2 lastDir = Vector2.down; //처음 시작시 아래 방향을 봄
+    private Vector2 lastDir = Vector2.down;
     private SpriteRenderer sr;
 
     private int damage;
@@ -32,9 +30,9 @@ public class HeadController : MonoBehaviour
     private void Start()
     {
         PoolManager.Instance.CreatPool(bulletPrefab, 20);
-        damage = bulletPrefab.damage; // bulletPrefab 현재 상태로 초기화
-        bulletSpeed = bulletPrefab.attackspeed; //bulletPrefab 현재 상태로 초기화
-        bulletRange = bulletPrefab.bulletDistance; //bulletPrefab 현재 상태로 초기화
+        damage = bulletPrefab.damage; 
+        bulletSpeed = bulletPrefab.attackspeed; 
+        bulletRange = bulletPrefab.bulletDistance;
 
     }
 
