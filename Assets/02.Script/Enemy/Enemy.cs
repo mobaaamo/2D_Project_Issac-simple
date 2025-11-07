@@ -28,6 +28,7 @@ public class Enemy : MonoBehaviour
         PoolManager.Instance.CreatPool(bulletPrefab, 40);
     }
 
+    // Player Check, 공격간격
     private void Update()
     {
 
@@ -44,7 +45,7 @@ public class Enemy : MonoBehaviour
             fireTimer = 0f;
         }
     }
-
+    // 부채꼴 모양 공격, Player방향으로 공격
     void AttackPlayer()
     {
 

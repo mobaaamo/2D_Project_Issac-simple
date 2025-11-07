@@ -17,6 +17,7 @@ public class EnemyHp : MonoBehaviour
             Die(); 
         }
     }
+    //BossDie 시 게임 클리어
     void Die()
     {
         if (TryGetComponent<EnemyBoss>(out var boss))

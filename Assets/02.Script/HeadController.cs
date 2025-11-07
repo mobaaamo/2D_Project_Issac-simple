@@ -36,6 +36,7 @@ public class HeadController : MonoBehaviour
 
     }
 
+    //공격방향
     void LateUpdate()
     {
         transform.localPosition = offset;
@@ -76,8 +77,8 @@ public class HeadController : MonoBehaviour
         bullet.SetStats(damage, bulletSpeed, bulletRange);
         bullet.Init(shootPoint.position, lastDir);
 
-
     }
+    //아이템 획득시 효과 적용
     public void AddDamage(int amount)
     {
         damage += amount;

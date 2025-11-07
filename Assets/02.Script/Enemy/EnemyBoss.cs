@@ -49,6 +49,7 @@ public class EnemyBoss : MonoBehaviour
         enemyHp = GetComponent<EnemyHp>();
     }
 
+    //Player Check, Player 방향으로 공격, 공격간격, 소환
     private void Update()
     {
 
@@ -79,6 +80,8 @@ public class EnemyBoss : MonoBehaviour
     {
         playerCheck.position = fixCheckBox;
     }
+
+    //부채꼴 모양 공격
     void AttackPlayer()
     {
         Vector2 playerDir = (player.position - transform.position).normalized;
@@ -104,6 +107,7 @@ public class EnemyBoss : MonoBehaviour
             }
         }
     }
+    //Follow Enemy소환
     void SpawnFollower()
     {
         EnemyFollower follower = PoolManager.Instance.GetFromPool(EnemyPrefab);

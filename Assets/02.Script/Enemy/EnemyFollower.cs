@@ -25,7 +25,7 @@ public class EnemyFollower : MonoBehaviour
         fixCheckBox = playerCheck.position;
 
     }
-
+    //PlayerCheck
     void Update()
     {
         if (player == null) return;
@@ -52,7 +52,6 @@ public class EnemyFollower : MonoBehaviour
         }
 
     }
-
     private void OnDrawGizmosSelected()
     {
         if (playerCheck == null) return;

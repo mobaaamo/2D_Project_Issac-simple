@@ -29,7 +29,7 @@ public class ItemSpawner : MonoBehaviour
         }
 
     }
-
+    //카메라내 itemSpawner 체크, 적이없을 시 아이템 소환, 방타입에 따른 소환방식
     private void Update()
     {
         if (itemSpawned) return; 
@@ -64,6 +64,7 @@ public class ItemSpawner : MonoBehaviour
             }
         }
     }
+    //카메라내 적 체크
     private int CountEnemiesInCamera()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -79,6 +80,7 @@ public class ItemSpawner : MonoBehaviour
         }
         return count;
     }
+    //랜덤 아이템 스폰
     private void Spawn()
     {
         if (itemPrefab == null || itemPrefab.Count == 0) return;

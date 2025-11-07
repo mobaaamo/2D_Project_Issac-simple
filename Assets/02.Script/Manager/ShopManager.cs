@@ -17,7 +17,7 @@ public class ShopManager : MonoBehaviour
         itemChosen = false;
         SpawnItems();
     }
-
+    //아이템 3개 랜덤 생성
     private void SpawnItems()
     {
         for (int i = 0; i < 3; i++)
@@ -35,7 +35,7 @@ public class ShopManager : MonoBehaviour
             spawnedItems.Add(itemObj);
         }
     }
-
+    // 1개의 아이템 획득시 나머지 삭제
     public void OnItemChosen(GameObject chosenItem)
     {
         if(itemChosen) return;
