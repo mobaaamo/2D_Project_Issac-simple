@@ -115,7 +115,7 @@ public class PlayerController : MonoBehaviour
         {
             headController.SetColor(new Color(1, 0, 0, 0.4f));
         }
-        Invoke("OffDamaged", 2.0f);
+        Invoke("OffDamaged", 0.5f);
     }
     void OffDamaged()
     {
