@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] private EnemyBullet bulletPrefab;    
     [SerializeField] private Transform firePoint;
     [SerializeField] private float fireInterval = 1.0f;
-    [SerializeField] private int bulletCount = 5;     
+    [SerializeField] private int bulletCount = 3;     
     [SerializeField] private float spreadAngle = 45f;
     [Header("Damage")]
     [SerializeField] private int damage = 1;

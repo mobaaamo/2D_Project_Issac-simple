@@ -302,12 +302,12 @@ TextureImporter:
       name: TileMap2_8
       rect:
         serializedVersion: 2
-        x: 512
-        y: 404
+        x: 529
+        y: 392
         width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        height: 63
+      alignment: 9
+      pivot: {x: 0.49200916, y: 0.5079899}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -323,8 +323,8 @@ TextureImporter:
       name: TileMap2_9
       rect:
         serializedVersion: 2
-        x: 576
-        y: 404
+        x: 607
+        y: 392
         width: 64
         height: 64
       alignment: 0
@@ -344,8 +344,8 @@ TextureImporter:
       name: TileMap2_10
       rect:
         serializedVersion: 2
-        x: 640
-        y: 404
+        x: 691
+        y: 393
         width: 64
         height: 64
       alignment: 0
@@ -365,8 +365,8 @@ TextureImporter:
       name: TileMap2_11
       rect:
         serializedVersion: 2
-        x: 704
-        y: 404
+        x: 778
+        y: 392
         width: 64
         height: 64
       alignment: 0

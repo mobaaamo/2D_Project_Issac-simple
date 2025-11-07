@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.U2D;
 
 public class PlayerController : MonoBehaviour
 {
@@ -15,6 +16,11 @@ public class PlayerController : MonoBehaviour
     [Header("BulletPrefab")]
     [SerializeField] private Bullet bulletPrefab;
 
+    [Header("PlayerHit Sprite")]
+    [SerializeField] private Sprite playerHit;
+
+    private Sprite originalSprite;
+
     public SpriteRenderer playerSr;
     public SpriteRenderer headSr;
 
@@ -24,12 +30,12 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Animator playerAnim;
     private Vector2 moveInput;
-    private SpriteRenderer spriter;
+    private SpriteRenderer sprite;
 
     private static readonly int moveSpeedXHash = Animator.StringToHash("MoveX");
     private static readonly int moveSpeedYHash = Animator.StringToHash("MoveY");
 
-    public static Transform PlayerTransform { get; private set; } //변수 이름 바꾸자 쉽게, Enemy 스크립트 전부 있으니 바꾸고 걔들도 바꿔
+    public static Transform PlayerTransform { get; private set; } 
 
     private void Awake()
     {
@@ -37,7 +43,10 @@ public class PlayerController : MonoBehaviour
         playerAnim = GetComponent<Animator>();
         PlayerTransform = transform;
         currentHp = maxHp;
-        spriter = GetComponent<SpriteRenderer>();
+        sprite = GetComponent<SpriteRenderer>();
+
+        originalSprite = sprite.sprite;
+
     }
     void Update()
     {
@@ -53,6 +62,7 @@ public class PlayerController : MonoBehaviour
         playerAnim.SetFloat(moveSpeedXHash, moveInput.x);
         playerAnim.SetFloat(moveSpeedYHash, moveInput.y);
 
+
     }
     private void FixedUpdate()
     {
@@ -65,6 +75,8 @@ public class PlayerController : MonoBehaviour
     }
     public void TakeDamage(int damage)
     {
+        SoundManager.instance.playerHit.Play();
+
         if (GameManager.instance.globalGameState == GameManager.GameState.GameClear)
             return;
 
@@ -86,25 +98,46 @@ public class PlayerController : MonoBehaviour
         if (collision.collider.CompareTag("Enemy"))
         {
             gameObject.layer = 10;
-            SoundManager.instance.playerHit.Play();
             OnDamaged(collision.transform.position);
         }
     }
     void OnDamaged(Vector2 targetPos)
     {
-        spriter.color = new Color(1, 0, 0, 0.4f);
+        if (playerAnim != null)
+        {
+            playerAnim.enabled = false;
+        }
+
+        sprite.color = new Color(1, 0, 0, 0.4f);
+        if (playerHit != null)
+        { 
+            sprite.sprite = playerHit; 
+        }
+        if (headSr != null)
+        {
+            headSr.enabled = false;
+        }
         if (headController != null)
         {
             headController.SetColor(new Color(1, 0, 0, 0.4f));
         }
-        Invoke("OffDamaged", 0.5f);
+        Invoke("OffDamaged", 2.0f);
     }
     void OffDamaged()
     {
-        spriter.color = new Color(1, 1, 1, 1);
+        sprite.color = new Color(1, 1, 1, 1);
+        sprite.sprite = originalSprite;
+        if (headSr != null)
+        {
+            headSr.enabled = true;
+        }
         if (headController != null)
         {
             headController.SetColor(Color.white);
+        }
+        if (playerAnim != null)
+        {
+            playerAnim.enabled = true;
         }
         gameObject.layer = 8;
     }
@@ -133,16 +166,19 @@ public class PlayerController : MonoBehaviour
     private IEnumerator DieDelay()
     {
         SoundManager.instance.playerDie.Play();
+        playerAnim.updateMode = AnimatorUpdateMode.UnscaledTime;
 
-        yield return null;
-        GameManager.instance.SetState(GameManager.GameState.GameOver);
-
-        playerSr.enabled = false;
+        playerAnim.SetTrigger("Die");
         headSr.enabled = false;
 
         yield return new WaitForSecondsRealtime(0.1f);
-        gameObject.SetActive(false);
 
+        GameManager.instance.SetState(GameManager.GameState.GameOver);
+
+        yield return new WaitForSecondsRealtime(1.5f);
+        gameObject.SetActive(false);
+        playerAnim.updateMode = AnimatorUpdateMode.Normal;
 
     }
+
 }
